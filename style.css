@@ -1,70 +1,86 @@
+/* Estilos gerais */
 body {
-    background-color: #b2bfc7; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; 
-    justify-content: flex-start;
-    min-height: 100vh;
+    font-family: Arial;
     margin: 0;
-    padding: 2rem;
-    font-family: Arial, sans-serif;
-    color: #F5F7F8;
+    padding: 20px;
+    background-color: #f4f4f9;
 }
 
-h1 {
-    color: #fffbfb;
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-p {
-    color: #C5C6C7;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-}
-
-/* Estilo dos blocos de exercício */
-div {
-    background-color: #b4b4d4;
-    padding: 1rem;
-    margin: 0.5rem 1rem;
-    width: calc(100% - 2rem);
-    max-width: 600px;
+/* Contêiner para os blocos, alinhando-os lado a lado */
+.blocos-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    flex-wrap: wrap;
+    gap: 10px; /* Espaço reduzido entre os blocos */
+    justify-content: flex-start; /* Alinha os blocos à esquerda */
 }
 
-/* Linha para agrupar repetições e peso */
+/* Estilo do bloco */
+.bloco {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 250px;
+}
+
+/* Estilo do campo do exercício */
+.exercicio {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #f4f4f9;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* Estilo para a linha de repetições e carga */
 .input-linha {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.repeticoes {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #f4f4f9;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.carga {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #f4f4f9;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* Estilo do campo de observações */
+.observacao-container {
     width: 100%;
+    margin-top: 10px;
 }
 
-.input-linha select {
-    flex: 7; /* 70% da largura */
-    margin: 0;
+.observacao-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 0.875rem;
+    text-align: left;
+    margin-left: 0;
 }
 
-.input-linha input[type="text"] {
-    flex: 3; /* 30% da largura */
-    padding: 0.8rem;
-    border: none;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 1rem;
-    background-color: #16213E;
-    color: #F5F7F8;
-}
-
-input[type="text"]::placeholder {
-    color: #B0B3B8;
-}
-
-select {
-    background-color: #16213E;
-    color: #F5F7F8;
+.observacao {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #f4f4f9;
+    border-radius: 4px;
+    min-height: 60px;
+    resize: vertical;
+    font-size: 0.875rem;
+    word-wrap: break-word; /* Quebra a linha quando necessário */
+    overflow-wrap: break-word; /* Para garantir que o texto não ultrapasse o bloco */
+    white-space: normal; /* Garante que o texto será quebrado */
 }
