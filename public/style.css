@@ -2,8 +2,21 @@
 body {
     font-family: Arial;
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 20px 20px; /* espaço extra no topo para a barra fixa */
     background-color: #f4f4f9;
+}
+
+/* Barra superior fixa com botão */
+.top-bar a button {
+    all: unset;
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    color: black;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 0;
 }
 
 /* Contêiner para os blocos, alinhando-os lado a lado */

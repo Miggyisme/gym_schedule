@@ -1,33 +1,31 @@
-// Captura o evento de clique no botão
-document.getElementById('salvar')?.addEventListener('click', () => {
-    // Captura os dados dos campos
-    const exercicio = (document.getElementById('exercicio') as HTMLInputElement).value;
-    const repeticoes = (document.getElementById('repeticoes') as HTMLInputElement).value;
-    const carga = (document.getElementById('carga') as HTMLInputElement).value;
-    const observacao = (document.getElementById('observacao') as HTMLInputElement).value;
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
-    // Cria um objeto com os dados
-    const dados = {
-        exercicio,
-        repeticoes,
-        carga,
-        observacao
-    };
+const app = express();
+const PORT = 3000;
 
-    // Envia os dados para o servidor (usando fetch)
-    fetch('http://seu-servidor.com/api/salvar', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dados)
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Dados salvos com sucesso!');
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Erro ao salvar os dados:', error);
+// Middleware para servir arquivos estáticos da pasta 'public'
+app.use(express.static('public'));
+
+// Middleware para permitir que o servidor leia JSON no corpo da requisição
+app.use(express.json());
+
+// Rota para salvar dados do Treino A
+app.post('/salvar-treino-a', (req, res) => {
+    const dados = req.body;
+
+    fs.writeFile('treino_A.json', JSON.stringify(dados, null, 2), (err) => {
+        if (err) {
+            console.error('Erro ao salvar os dados:', err);
+            return res.status(500).json({ mensagem: 'Erro ao salvar os dados' });
+        }
+
+        res.json({ mensagem: 'Dados salvos com sucesso!' });
     });
+});
+
+// Inicia o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
