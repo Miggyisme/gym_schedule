@@ -17,11 +17,11 @@ function processarRepeticoes(repeticoesText, carga) {
 // Função para categorizar o exercício
 function categorizarExercicio(exercicio) {
   const categorias = {
-    "peitoral": ["crucifixo", "supino", "flexão"],
+    "peitoral": ["crucifixo","crossover","supino"],
     "costas": ["puxada", "remada"],
     "ombros": ["desenvolvimento", "elevação"],
     "biceps": ["rosca", "biceps","bíceps","martelo"],
-    "triceps": ["triceps","tríceps","pulley"],
+    "triceps": ["triceps","tríceps","frances","francês"],
     "pernas": ["agachamento", "leg","cadeira"]
   };
 
