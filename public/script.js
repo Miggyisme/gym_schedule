@@ -18,11 +18,11 @@ function processarRepeticoes(repeticoesText, carga) {
 function categorizarExercicio(exercicio) {
   const categorias = {
     "peitoral": ["crucifixo", "supino", "flexão"],
-    "costas": ["pulley", "barra", "remada"],
-    "ombros": ["desenvolvimento", "elevação", "front raise"],
-    "biceps": ["rosca", "alternada", "martelo"],
-    "triceps": ["triceps", "pulley", "mergulhos"],
-    "pernas": ["agachamento", "leg press", "extensão"]
+    "costas": ["puxada", "remada"],
+    "ombros": ["desenvolvimento", "elevação"],
+    "biceps": ["rosca", "biceps","bíceps","martelo"],
+    "triceps": ["triceps","tríceps","pulley"],
+    "pernas": ["agachamento", "leg","cadeira"]
   };
 
   for (let categoria in categorias) {
@@ -43,6 +43,7 @@ function processarTreino() {
   let totalTriceps = 0;
   let totalPernas = 0;
 
+  // Calcular os totais para cada exercício
   for (let i = 1; i <= 11; i++) {
     const exercicio = document.getElementById(`exercicio${i}`).value;
     const repeticoes = document.getElementById(`repeticoes${i}`).value;
@@ -77,25 +78,36 @@ function processarTreino() {
     }
   }
 
-  // Salvar os totais de volume no localStorage
-  const totals = {
-    peitoral: totalPeitoral,
-    costas: totalCostas,
-    ombros: totalOmbros,
-    biceps: totalBiceps,
-    triceps: totalTriceps,
-    pernas: totalPernas
+  // Carregar os totais existentes do localStorage
+  const totalsExistentes = JSON.parse(localStorage.getItem('totals')) || {
+    peitoral: 0,
+    costas: 0,
+    ombros: 0,
+    biceps: 0,
+    triceps: 0,
+    pernas: 0
   };
 
+  // Somar os novos totais com os existentes
+  const totals = {
+    peitoral: totalsExistentes.peitoral + totalPeitoral,
+    costas: totalsExistentes.costas + totalCostas,
+    ombros: totalsExistentes.ombros + totalOmbros,
+    biceps: totalsExistentes.biceps + totalBiceps,
+    triceps: totalsExistentes.triceps + totalTriceps,
+    pernas: totalsExistentes.pernas + totalPernas
+  };
+
+  // Salvar os totais atualizados no localStorage
   localStorage.setItem('totals', JSON.stringify(totals));
 
   // Exibir os totais no HTML
-  document.getElementById("peitoral-total").textContent = `Peitoral: ${totalPeitoral}`;
-  document.getElementById("costas-total").textContent = `Costas: ${totalCostas}`;
-  document.getElementById("ombros-total").textContent = `Ombros: ${totalOmbros}`;
-  document.getElementById("biceps-total").textContent = `Bíceps: ${totalBiceps}`;
-  document.getElementById("triceps-total").textContent = `Tríceps: ${totalTriceps}`;
-  document.getElementById("pernas-total").textContent = `Pernas: ${totalPernas}`;
+  document.getElementById("peitoral-total").textContent = `Peitoral: ${totals.peitoral}`;
+  document.getElementById("costas-total").textContent = `Costas: ${totals.costas}`;
+  document.getElementById("ombros-total").textContent = `Ombros: ${totals.ombros}`;
+  document.getElementById("biceps-total").textContent = `Bíceps: ${totals.biceps}`;
+  document.getElementById("triceps-total").textContent = `Tríceps: ${totals.triceps}`;
+  document.getElementById("pernas-total").textContent = `Pernas: ${totals.pernas}`;
 }
 
 // Função para carregar os dados do localStorage ao carregar a página
@@ -119,7 +131,7 @@ function atualizarVolumeTreinos() {
   const totals = JSON.parse(localStorage.getItem('totals'));
 
   if (totals) {
-    // Exibir os totais, mas exibir apenas o total de peitoral se preferir
+    // Exibir os totais acumulados
     document.getElementById("peitoral-total").textContent = `Peitoral: ${totals.peitoral || 0}`;
     document.getElementById("costas-total").textContent = `Costas: ${totals.costas || 0}`;
     document.getElementById("ombros-total").textContent = `Ombros: ${totals.ombros || 0}`;
@@ -168,4 +180,37 @@ function salvarDados() {
 window.onload = function() {
   carregarDados();
   atualizarVolumeTreinos();  // Atualiza os volumes calculados
+};
+
+// Função para resetar os totais
+function resetarTotais() {
+  // Resetando os totais para zero
+  const totalsResetados = {
+    peitoral: 0,
+    costas: 0,
+    ombros: 0,
+    biceps: 0,
+    triceps: 0,
+    pernas: 0
+  };
+
+  // Salvar os totais resetados no localStorage
+  localStorage.setItem('totals', JSON.stringify(totalsResetados));
+
+  // Exibir os totais resetados no HTML
+  document.getElementById("peitoral-total").textContent = `Peitoral: ${totalsResetados.peitoral}`;
+  document.getElementById("costas-total").textContent = `Costas: ${totalsResetados.costas}`;
+  document.getElementById("ombros-total").textContent = `Ombros: ${totalsResetados.ombros}`;
+  document.getElementById("biceps-total").textContent = `Bíceps: ${totalsResetados.biceps}`;
+  document.getElementById("triceps-total").textContent = `Tríceps: ${totalsResetados.triceps}`;
+  document.getElementById("pernas-total").textContent = `Pernas: ${totalsResetados.pernas}`;
+}
+
+// Função para carregar os dados e atualizar o volume quando a página for carregada
+window.onload = function() {
+  carregarDados();
+  atualizarVolumeTreinos();  // Atualiza os volumes calculados
+
+  // Adicionar o evento de clique no botão "Resetar Totais"
+  document.getElementById("resetar-btn").addEventListener("click", resetarTotais);
 };

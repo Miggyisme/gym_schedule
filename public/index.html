@@ -17,32 +17,52 @@
 
   <h3>Volume dos Treinos</h3>
 
-  <div id="volume-treinos">
+  <div id="totais">
     <p id="peitoral-total">Peitoral: 0</p>
     <p id="costas-total">Costas: 0</p>
     <p id="ombros-total">Ombros: 0</p>
     <p id="biceps-total">Bíceps: 0</p>
     <p id="triceps-total">Tríceps: 0</p>
     <p id="pernas-total">Pernas: 0</p>
+    <button id="resetar-btn">Resetar Totais</button>
   </div>
 
   <script>
-    // Função para carregar os totais do localStorage
     window.onload = function() {
       const totals = JSON.parse(localStorage.getItem('totals'));
 
       if (totals) {
-        document.getElementById("peitoral-total").textContent = `Peitoral: ${totals.peitoral}`;
-        document.getElementById("costas-total").textContent = `Costas: ${totals.costas}`;
-        document.getElementById("ombros-total").textContent = `Ombros: ${totals.ombros}`;
-        document.getElementById("biceps-total").textContent = `Bíceps: ${totals.biceps}`;
-        document.getElementById("triceps-total").textContent = `Tríceps: ${totals.triceps}`;
-        document.getElementById("pernas-total").textContent = `Pernas: ${totals.pernas}`;
+        document.getElementById("peitoral-total").textContent = `Peitoral: ${totals.peitoral || 0}`;
+        document.getElementById("costas-total").textContent = `Costas: ${totals.costas || 0}`;
+        document.getElementById("ombros-total").textContent = `Ombros: ${totals.ombros || 0}`;
+        document.getElementById("biceps-total").textContent = `Bíceps: ${totals.biceps || 0}`;
+        document.getElementById("triceps-total").textContent = `Tríceps: ${totals.triceps || 0}`;
+        document.getElementById("pernas-total").textContent = `Pernas: ${totals.pernas || 0}`;
+      }
+
+      // Adiciona o evento ao botão de resetar
+      const btn = document.getElementById("resetar-btn");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const zeros = {
+            peitoral: 0,
+            costas: 0,
+            ombros: 0,
+            biceps: 0,
+            triceps: 0,
+            pernas: 0
+          };
+          localStorage.setItem('totals', JSON.stringify(zeros));
+          document.getElementById("peitoral-total").textContent = `Peitoral: 0`;
+          document.getElementById("costas-total").textContent = `Costas: 0`;
+          document.getElementById("ombros-total").textContent = `Ombros: 0`;
+          document.getElementById("biceps-total").textContent = `Bíceps: 0`;
+          document.getElementById("triceps-total").textContent = `Tríceps: 0`;
+          document.getElementById("pernas-total").textContent = `Pernas: 0`;
+        });
       }
     };
   </script>
-
-  <script src="contas.js"></script>
 
 </body>
 </html>
