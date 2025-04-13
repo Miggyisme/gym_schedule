@@ -1,21 +1,48 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Schedule</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treinos</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Gym Schedule</h1>
-    </header>
 
-    <section>
-        <a href="TreinoA.html"><button>Treino A</button></a>
-        <a href="TreinoB.html"><button>Treino B</button></a>
-        <a href="TreinoC.html"><button>Treino C</button></a>
-        <a href="TreinoD.html"><button>Treino D</button></a>
-    </section>
+  <div class="top-bar">
+    <a href="treinoA.html"><button>Treino A</button></a>
+    <a href="treinoB.html"><button>Treino B</button></a>
+    <a href="treinoC.html"><button>Treino C</button></a>
+    <a href="treinoD.html"><button>Treino D</button></a>
+  </div>
+
+  <h3>Volume dos Treinos</h3>
+
+  <div id="volume-treinos">
+    <p id="peitoral-total">Peitoral: 0</p>
+    <p id="costas-total">Costas: 0</p>
+    <p id="ombros-total">Ombros: 0</p>
+    <p id="biceps-total">Bíceps: 0</p>
+    <p id="triceps-total">Tríceps: 0</p>
+    <p id="pernas-total">Pernas: 0</p>
+  </div>
+
+  <script>
+    // Função para carregar os totais do localStorage
+    window.onload = function() {
+      const totals = JSON.parse(localStorage.getItem('totals'));
+
+      if (totals) {
+        document.getElementById("peitoral-total").textContent = `Peitoral: ${totals.peitoral}`;
+        document.getElementById("costas-total").textContent = `Costas: ${totals.costas}`;
+        document.getElementById("ombros-total").textContent = `Ombros: ${totals.ombros}`;
+        document.getElementById("biceps-total").textContent = `Bíceps: ${totals.biceps}`;
+        document.getElementById("triceps-total").textContent = `Tríceps: ${totals.triceps}`;
+        document.getElementById("pernas-total").textContent = `Pernas: ${totals.pernas}`;
+      }
+    };
+  </script>
+
+  <script src="contas.js"></script>
+
 </body>
 </html>
