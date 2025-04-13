@@ -12,18 +12,25 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // Rota para salvar dados do Treino A
-app.post('/salvar-treino-a', (req, res) => {
-    const dados = req.body;
+app.post('/salvar-treino', (req, res) => {
+    const { treino, dados } = req.body;
 
-    fs.writeFile('treino_A.json', JSON.stringify(dados, null, 2), (err) => {
+    if (!treino || !dados) {
+        return res.status(400).json({ mensagem: 'Treino ou dados ausentes' });
+    }
+
+    const filename = `treino_${treino.toUpperCase()}.json`;
+
+    fs.writeFile(filename, JSON.stringify(dados, null, 2), (err) => {
         if (err) {
             console.error('Erro ao salvar os dados:', err);
             return res.status(500).json({ mensagem: 'Erro ao salvar os dados' });
         }
 
-        res.json({ mensagem: 'Dados salvos com sucesso!' });
+        res.json({ mensagem: `Dados do treino ${treino.toUpperCase()} salvos com sucesso!` });
     });
 });
+
 
 // Inicia o servidor
 app.listen(PORT, () => {
