@@ -26,7 +26,8 @@ function categorizarExercicio(exercicio) {
   };
 
   for (let categoria in categorias) {
-    if (categorias[categoria].some(ex => exercicio.toLowerCase().includes(ex))) {
+    const exercicioEstaNaCategoria = categorias[categoria].some(ex => exercicio.toLowerCase().includes(ex))
+    if (exercicioEstaNaCategoria) {
       return categoria;
     }
   }
